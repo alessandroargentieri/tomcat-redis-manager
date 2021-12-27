@@ -6,7 +6,7 @@ on:
       - 'v*' 
 
 jobs:
-  test:
+  mvn-build-test:
     runs-on: ubuntu-latest
     steps:
     
@@ -28,7 +28,7 @@ jobs:
     - name: Build and Test with maven
       run: mvn install
 
-  build:
+  docker-build-push:
     runs-on: ubuntu-latest
     steps:
     
