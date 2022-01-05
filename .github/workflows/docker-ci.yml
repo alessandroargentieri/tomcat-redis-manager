@@ -93,7 +93,7 @@ jobs:
           body: |
               hello
               W{{ env.RELEASE_VERSION }}
-              ${{RELEASE_VERSION}}
+              W{{RELEASE_VERSION}}
               ${RELEASE_VERSION}
               $RELEASE_VERSION
               ciao
