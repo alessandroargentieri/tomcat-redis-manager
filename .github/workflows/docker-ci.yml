@@ -102,7 +102,7 @@ jobs:
               eeee
               ${GITHUB_ENV}
               ffff
-              ${{GITHUB_ENV}}
+              W{{GITHUB_ENV}}
           draft: false
           prerelease: false
 
