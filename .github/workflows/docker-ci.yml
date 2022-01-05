@@ -91,7 +91,6 @@ jobs:
           release_name: ${{ release.version }}
           body: |
               hello
-              ${{ release.version }}
               ciao
           draft: false
           prerelease: false
