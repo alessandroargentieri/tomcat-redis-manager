@@ -5,9 +5,6 @@ on:
     tags:
       - 'v[0-9]+\.[0-9]+\.[0-9]+'
 
-env:
-    RELEASE_VERSION: ""
-
 jobs:
   mvn-test:
     runs-on: ubuntu-latest
@@ -34,24 +31,30 @@ jobs:
   docker-build-push:
     runs-on: ubuntu-latest
     needs: mvn-test
+    outputs:
+        release_version: ${{ steps.docker_build_push.outputs.release_version }}
     steps:
 
-    - name: Checkout code
+    - id: checkout_code
+      name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Login to DockerHub
+    - id: login_docker_hub
+      name: Login to DockerHub
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
     
-    - name: Build and push the Docker image
+    - id: docker_build_push
+      name: Build and push the Docker image
       run: |
         # examples of tag: v1, v1.4, v1.4.5
         TAG=$(echo $GITHUB_REF | cut -d / -f 3)
         VERSION=$(echo $TAG | cut -d 'v' -f 2)
-        # export the environment variable for the next steps
-        echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_ENV
+        # export the environment variable for the dependant jobs
+        # echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_ENV
+        echo "::set-output name=release_version::$VERSION"
 
         SPLITTED=(${VERSION//./ })
         for i in {0..2}
@@ -91,7 +94,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ env.RELEASE_VERSION }}
+          release_name: ${{ needs.docker-build-push.outputs.release_version }}
           body: |
               hello
               ciao
