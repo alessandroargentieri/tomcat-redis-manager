@@ -90,9 +90,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ env.VERSION }}
           body: |
-            Changes in this Release
-             - First Change
-             - Second Change
+              ${{ env.VERSION }}
           draft: false
           prerelease: false
 
