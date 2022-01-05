@@ -5,6 +5,9 @@ on:
     tags:
       - 'v[0-9]+\.[0-9]+\.[0-9]+'
 
+env:
+    RELEASE_VERSION: ""
+
 jobs:
   mvn-test:
     runs-on: ubuntu-latest
@@ -88,7 +91,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ release.version }}
+          release_name: ${{ env.RELEASE_VERSION }}
           body: |
               hello
               ciao
