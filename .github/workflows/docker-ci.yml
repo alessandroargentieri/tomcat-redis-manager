@@ -89,7 +89,7 @@ jobs:
           RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: $RELEASE_VERSION
+          release_name: ${{ env.RELEASE_VERSION }}
           body: |
               hello
               ${{ env.RELEASE_VERSION }}
