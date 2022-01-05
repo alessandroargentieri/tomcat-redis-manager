@@ -93,8 +93,16 @@ jobs:
           body: |
               hello
               ${{ env.RELEASE_VERSION }}
+              ${{RELEASE_VERSION}}
+              ${RELEASE_VERSION}
               $RELEASE_VERSION
               ciao
+              brrr
+              $GITHUB_ENV
+              eeee
+              ${GITHUB_ENV}
+              ffff
+              ${{GITHUB_ENV}}
           draft: false
           prerelease: false
 
