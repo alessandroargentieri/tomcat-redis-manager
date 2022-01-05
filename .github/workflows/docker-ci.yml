@@ -86,23 +86,13 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ env.RELEASE_VERSION }}
+          release_name: ${{ release.version }}
           body: |
               hello
-              W{{ env.RELEASE_VERSION }}
-              W{{RELEASE_VERSION}}
-              ${RELEASE_VERSION}
-              $RELEASE_VERSION
+              ${{ release.version }}
               ciao
-              brrr
-              $GITHUB_ENV
-              eeee
-              ${GITHUB_ENV}
-              ffff
-              W{{GITHUB_ENV}}
           draft: false
           prerelease: false
 
