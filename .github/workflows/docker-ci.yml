@@ -48,7 +48,7 @@ jobs:
         TAG=$(echo $GITHUB_REF | cut -d / -f 3)
         VERSION=$(echo $TAG | cut -d 'v' -f 2)
         # export the environment variable for the next steps
-        echo "$RELEASE_VERSION=${VERSION}" >> $GITHUB_ENV
+        echo "RELEASE_VERSION=${VERSION}" >> $GITHUB_ENV
 
         SPLITTED=(${VERSION//./ })
         for i in {0..2}
