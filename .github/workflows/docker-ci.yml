@@ -46,9 +46,11 @@ jobs:
       run: |
         # examples of tag: v1, v1.4, v1.4.5
         TAG=$(echo $GITHUB_REF | cut -d / -f 3)
-        INPUT_VERSION=$(echo $TAG | cut -d 'v' -f 2)
+        VERSION=$(echo $TAG | cut -d 'v' -f 2)
+        # export the environment variable for the next steps
+        echo "$VERSION" >> $GITHUB_ENV
 
-        SPLITTED=(${INPUT_VERSION//./ })
+        SPLITTED=(${VERSION//./ })
         for i in {0..2}
         do
            [ "${SPLITTED[$i]}" != "" ] || SPLITTED[$i]=0
@@ -86,7 +88,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
-          release_name: $(echo ${{ github.ref }} | cut -d v -f 2)
+          release_name: ${{ env.VERSION }}
           body: |
             Changes in this Release
              - First Change
