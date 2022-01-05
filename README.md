@@ -186,8 +186,11 @@ git config --global alias.release '!f() {
     YELLOW=`tput setaf 3`
     BOLD=`tput bold` 
 
-    LASTTAG=$(git lasttag | cut -d 'v' -f 2)                   
-    SPLITTED=(${LASTTAG//./ })                                 
+    LASTTAG=$(git lasttag)
+    [ "$LASTTAG" != "" ] || LASTTAG="v0.0.0"
+    VERSION=$(echo "$LASTTAG" | cut -d 'v' -f 2)
+                    
+    SPLITTED=(${VERSION//./ })                                 
     for i in {0..2}                                            
     do                                                         
        SPLITTED[$i]=`echo ${SPLITTED[$i]} | cut -d '-' -f 1`   
