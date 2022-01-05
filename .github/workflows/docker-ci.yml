@@ -48,7 +48,7 @@ jobs:
         TAG=$(echo $GITHUB_REF | cut -d / -f 3)
         VERSION=$(echo $TAG | cut -d 'v' -f 2)
         # export the environment variable for the next steps
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "VERSION_ENV=${VERSION}" >> $GITHUB_ENV
 
         SPLITTED=(${VERSION//./ })
         for i in {0..2}
@@ -88,9 +88,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ env.VERSION }}
+          release_name: ${{ env.VERSION_ENV }}
           body: |
-              ${{ env.VERSION }}
+              ${{ env.VERSION_ENV }}
           draft: false
           prerelease: false
 
