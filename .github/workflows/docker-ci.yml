@@ -100,4 +100,7 @@ jobs:
               ciao
           draft: false
           prerelease: false
+          files: |
+            LICENSE.txt
+            *.jar
 
