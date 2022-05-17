@@ -85,8 +85,21 @@ jobs:
     needs: docker-build-push
     runs-on: ubuntu-latest
     steps:
+    
       - name: Checkout code
         uses: actions/checkout@v2
+     
+      - name: Set up JDK 11 for the tests
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+                
+      - name: Maven package
+        run: mvn package
+    
+    
       - name: Create Release
         id: create_release
         uses: "marvinpinto/action-automatic-releases@latest"
