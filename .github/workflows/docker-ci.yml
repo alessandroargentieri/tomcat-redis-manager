@@ -114,5 +114,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            target/*.jar
+            LICENSE
+            target/*-shaded.jar
 
